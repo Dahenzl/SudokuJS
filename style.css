@@ -5,14 +5,16 @@ body{
     align-items: center;
     justify-content: center;
     background-color: gray;
+    margin: 0;
+    padding: 0;
 }
 
 .main_grid{
     display: grid;
     grid-template-columns: repeat(9, 1fr);
     grid-template-rows: repeat(9, 1fr);
-    width: min(70vw, 70vh);
-    height: min(70vw, 70vh);
+    width: min(75vw, 75vh);
+    height: min(75vw, 75vh);
     border: solid 0.2em black;
     background-color: white;
 }
@@ -22,7 +24,7 @@ body{
     width: auto;
     height: auto;
     background-color: white;
-    border: solid 0.1em gray;
+    border: solid 0.08em gray;
     justify-content: center;
     align-items: center;
     font-family: "Arial", sans-serif;
@@ -53,4 +55,12 @@ body{
 
 .preview-same{
     background-color: rgba(35, 127, 127, 0.5);
+}
+
+.error{
+    color: red;
+}
+
+.correct{
+    color: rgb(27, 14, 218);
 }

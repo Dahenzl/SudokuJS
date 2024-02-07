@@ -23,14 +23,19 @@ function onClick(e) {
 
 function putNumber(e) {
     let item = document.querySelector(".selected")
-    if (item != null){
+    if (item != null && !item.classList.contains("filled")){
         if (e.key >= 1 && e.key <= 9){
             item.innerHTML = e.key
-            items.forEach(other => {
-                if(other.innerHTML == item.innerHTML && other.id != item.id && item.innerHTML != ""){
-                    other.classList.add("preview-same")
-                }
-            });
+            if(item.classList.contains(e.key)){
+                item.classList.add("correct")
+                items.forEach(other => {
+                    if(other.innerHTML == item.innerHTML && other.id != item.id && item.innerHTML != ""){
+                        other.classList.add("preview-same")
+                    }
+                });
+            } else{
+                item.classList.add("error")
+            }
         }
     }
 }
@@ -43,32 +48,32 @@ function generateGrid() {
         item.id = i;
         grid.appendChild(item);
         if (i % 3 == 0 && i % 9 != 0){
-            item.style.marginLeft = "0.1em"
-            item.style.borderLeft = "0.2em solid gray"
+            item.style.marginLeft = "0.05em"
+            item.style.borderLeft = "0.16em solid gray"
         }
         if(i % 9 == 2 && i != 0){
-            item.style.marginRight = "0.1em"
-            item.style.borderRight = "0.2em solid gray"
+            item.style.marginRight = "0.05em"
+            item.style.borderRight = "0.16em solid gray"
         }
         if(i % 9 == 5){
-            item.style.marginRight = "0.1em"
-            item.style.borderRight = "0.2em solid gray"
+            item.style.marginRight = "0.05em"
+            item.style.borderRight = "0.16em solid gray"
         }
         if(i >= 18 && i <= 26 || i >= 45 && i <= 53 || i >= 72 && i <= 80){
-            item.style.marginBottom = "0.1em"
-            item.style.borderBottom = "0.2em solid gray"
+            item.style.marginBottom = "0.05em"
+            item.style.borderBottom = "0.16em solid gray"
         }
         if(i >= 27 && i <= 35 || i >= 54 && i <= 62 || i >= 0 && i <= 8){
-            item.style.marginTop = "0.1em"
-            item.style.borderTop = "0.2em solid gray"
+            item.style.marginTop = "0.05em"
+            item.style.borderTop = "0.16em solid gray"
         }
         if (i % 9 == 0){
-            item.style.marginLeft = "0.1em"
-            item.style.borderLeft = "0.2em solid gray"
+            item.style.marginLeft = "0.05em"
+            item.style.borderLeft = "0.16em solid gray"
         }
         if (i % 9 == 8){
-            item.style.marginRight = "0.1em"
-            item.style.borderRight = "0.2em solid gray"
+            item.style.marginRight = "0.05em"
+            item.style.borderRight = "0.16em solid gray"
         }
         item.addEventListener("click", onClick)
     }
@@ -144,10 +149,50 @@ function isValid(table, row, column, num) {
     return true;
 }
 
+function hideNumbers(sudoku, difficulty) {
+    let table = sudoku.map(row => row.slice());
+
+    let numHCell = Math.floor(difficulty * 81 / 100);
+
+    while (numHCell > 0) {
+        let row = Math.floor(Math.random() * 9);
+        let column = Math.floor(Math.random() * 9);
+    
+        if (table[row][column] === null) {
+            continue;
+        }
+
+        let numTemp = table[row][column];
+    
+        table[row][column] = null;
+    
+        if (!unicSolution(table)) {
+            table[row][column] = numTemp;
+            continue;
+        }
+    
+        numHCell--;
+    }
+    
+    return table;
+}
+
+function unicSolution(table) {
+    let tableCopy = table.map(row => row.slice());
+    return solveSudoku(tableCopy);
+}
+
 function fillGrid() {
     const table = generateSudoku();
     for (let i = 0; i < 81; i++){
-        items[i].innerHTML = table[Math.floor(i/9)][i%9]
+        items[i].classList.add(table[Math.floor(i/9)][i%9])
+    }
+    const hideTable = hideNumbers(table, 50);
+    for (let i = 0; i < 81; i++){
+        items[i].innerHTML = hideTable[Math.floor(i/9)][i%9]
+        if(items[i].innerHTML != ""){
+            items[i].classList.add("filled")
+        }
     }
 }
 
