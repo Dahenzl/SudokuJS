@@ -45,5 +45,9 @@ body{
 }
 
 .preview{
-    background-color: rgba(45, 206, 206, 0.177);
+    background-color: rgba(114, 237, 237, 0.177);
+}
+
+.preview-same{
+    background-color: rgba(35, 127, 127, 0.5);
 }
