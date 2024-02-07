@@ -1,0 +1,33 @@
+body{
+    width: 100vw;
+    height: 100vh; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: gray;
+}
+
+.main_grid{
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(9, 1fr);
+    width: min(70vw, 70vh);
+    height: min(70vw, 70vh);
+    border: solid 0.2em black;
+    background-color: white;
+}
+
+.grid-item {
+    display: flex;
+    width: auto;
+    height: auto;
+    background-color: white;
+    border: solid 0.1em gray;
+    justify-content: center;
+    align-items: center;
+}
+
+.grid-item:hover{
+    background-color: rgba(45, 206, 206, 0.342);
+    cursor: grab;
+}
