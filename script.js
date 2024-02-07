@@ -7,7 +7,7 @@ function onClick(e) {
         other.classList.remove("selected")
         other.classList.remove("preview")
         other.classList.add("unselected")
-        if((other.id % 9 == item.id % 9 || Math.floor(other.id/9) == Math.floor(item.id/9)) && other.id != item.id){
+        if(((other.id % 9 == item.id % 9 || Math.floor(other.id/9) == Math.floor(item.id/9)) || (Math.floor(other.id % 9/3) == Math.floor(item.id % 9/3) && Math.floor(Math.floor(other.id/9)/3) == Math.floor(Math.floor(item.id/9)/3))) && other.id != item.id){
             other.classList.add("preview")
         }
     });
@@ -22,7 +22,6 @@ function generateGrid() {
         item.classList.add("grid-item");
         item.classList.add("unselected");
         item.id = i;
-        item.innerHTML = i;
         grid.appendChild(item);
         if (i % 3 == 0 && i % 9 != 0){
             item.style.marginLeft = "0.1em"
