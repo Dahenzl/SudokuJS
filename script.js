@@ -75,4 +75,82 @@ function generateGrid() {
     items = document.querySelectorAll(".grid-item")
 }
 
+function generateSudoku() {
+    let table = new Array(9).fill(null).map(() => new Array(9).fill(0));
+    solveSudoku(table);
+    return table;
+}
+
+function solveSudoku(table) {
+    const emptyCell = findEmptyCell(table);
+    const row = emptyCell[0];
+    const column = emptyCell[1];
+
+    if (row === -1) {
+        return true;
+    }
+
+    for (let num = 1; num <= 9; num++) {
+        n = Math.floor(Math.random() * 9) + 1
+        if (isValid(table, row, column, n)) {
+            table[row][column] = n;
+
+            if (solveSudoku(table)) {
+                return true; 
+            }
+
+            table[row][column] = 0;
+        }
+    }
+
+    return false;
+}
+
+function findEmptyCell(table) {
+    for (let i = 0; i < 9; i++) {
+        for (let j = 0; j < 9; j++) {
+            if (table[i][j] === 0) {
+                return [i, j];
+            }
+        }
+    }
+
+    return [-1, -1];
+}
+
+function isValid(table, row, column, num) {
+    for (let i = 0; i < 9; i++) {
+        if (table[row][i] === num) {
+            return false;
+        }
+    }
+
+    for (let i = 0; i < 9; i++) {
+        if (table[i][column] === num) {
+            return false;
+        }
+    }
+
+    const startRow = Math.floor(row / 3) * 3;
+    const startCol = Math.floor(column / 3) * 3;
+    for (let i = startRow; i < startRow + 3; i++) {
+        for (let j = startCol; j < startCol + 3; j++) {
+            if (table[i][j] === num) {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+function fillGrid() {
+    const table = generateSudoku();
+    for (let i = 0; i < 81; i++){
+        items[i].innerHTML = table[Math.floor(i/9)][i%9]
+    }
+}
+
 generateGrid()
+fillGrid()
+
