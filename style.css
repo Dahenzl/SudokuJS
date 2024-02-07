@@ -28,7 +28,7 @@ body{
 }
 
 .selected{
-    background-color: rgba(45, 206, 206, 0.784);
+    background-color: rgba(45, 206, 206, 0.859);
 }
 
 .selected:hover{
@@ -40,6 +40,10 @@ body{
     cursor: grab;
 }
 .grid-item:active{
-    background-color: rgba(45, 206, 206, 0.751);
+    background-color: rgba(45, 206, 206, 0.814);
     cursor: grabbing;
+}
+
+.preview{
+    background-color: rgba(45, 206, 206, 0.177);
 }

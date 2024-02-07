@@ -2,12 +2,18 @@ let grid = document.querySelector(".main_grid")
 let items
 
 function onClick(e) {
-    items.forEach(item => {
-        item.classList.remove("selected")
-    });
     let item = e.target;
-    item.classList.toggle("selected")
-    item.classList.toggle("unselected")
+    items.forEach(other => {
+        other.classList.remove("selected")
+        other.classList.remove("preview")
+        other.classList.add("unselected")
+        if((other.id % 9 == item.id % 9 || Math.floor(other.id/9) == Math.floor(item.id/9)) && other.id != item.id){
+            other.classList.add("preview")
+        }
+    });
+    item.classList.add("selected")
+    item.classList.remove("unselected")
+
 }
 
 function generateGrid() {
@@ -15,8 +21,9 @@ function generateGrid() {
         let item = document.createElement("div");
         item.classList.add("grid-item");
         item.classList.add("unselected");
-        grid.appendChild(item);
+        item.id = i;
         item.innerHTML = i;
+        grid.appendChild(item);
         if (i % 3 == 0 && i % 9 != 0){
             item.style.marginLeft = "0.1em"
             item.style.borderLeft = "0.2em solid gray"
