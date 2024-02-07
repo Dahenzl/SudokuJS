@@ -1,19 +1,38 @@
 let grid = document.querySelector(".main_grid")
 let items
 
+document.addEventListener("keydown", putNumber)
+
 function onClick(e) {
     let item = e.target;
     items.forEach(other => {
+        other.classList.remove("preview-same")
         other.classList.remove("selected")
         other.classList.remove("preview")
         other.classList.add("unselected")
         if(((other.id % 9 == item.id % 9 || Math.floor(other.id/9) == Math.floor(item.id/9)) || (Math.floor(other.id % 9/3) == Math.floor(item.id % 9/3) && Math.floor(Math.floor(other.id/9)/3) == Math.floor(Math.floor(item.id/9)/3))) && other.id != item.id){
             other.classList.add("preview")
         }
+        if(other.innerHTML == item.innerHTML && other.id != item.id && item.innerHTML != ""){
+            other.classList.add("preview-same")
+        }
     });
     item.classList.add("selected")
     item.classList.remove("unselected")
+}
 
+function putNumber(e) {
+    let item = document.querySelector(".selected")
+    if (item != null){
+        if (e.key >= 1 && e.key <= 9){
+            item.innerHTML = e.key
+            items.forEach(other => {
+                if(other.innerHTML == item.innerHTML && other.id != item.id && item.innerHTML != ""){
+                    other.classList.add("preview-same")
+                }
+            });
+        }
+    }
 }
 
 function generateGrid() {
