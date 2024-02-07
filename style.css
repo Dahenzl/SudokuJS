@@ -27,7 +27,19 @@ body{
     align-items: center;
 }
 
-.grid-item:hover{
+.selected{
+    background-color: rgba(45, 206, 206, 0.784);
+}
+
+.selected:hover{
+    cursor: grab;
+}
+
+.unselected:hover{
     background-color: rgba(45, 206, 206, 0.342);
     cursor: grab;
+}
+.grid-item:active{
+    background-color: rgba(45, 206, 206, 0.751);
+    cursor: grabbing;
 }
