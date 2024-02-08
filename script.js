@@ -1,5 +1,6 @@
 let grid = document.querySelector(".main_grid")
 let items
+let numErrors = 0
 
 document.addEventListener("keydown", putNumber)
 
@@ -29,14 +30,31 @@ function putNumber(e) {
             if(item.classList.contains(e.key)){
                 item.classList.add("correct")
                 items.forEach(other => {
+                    other.classList.remove("preview-same")
                     if(other.innerHTML == item.innerHTML && other.id != item.id && item.innerHTML != ""){
                         other.classList.add("preview-same")
                     }
                 });
             } else{
+                item.classList.remove("correct")
                 item.classList.add("error")
+                numErrors++
+                items.forEach(other => {
+                    other.classList.remove("preview-same")
+                    if(other.innerHTML == item.innerHTML && other.id != item.id && item.innerHTML != ""){
+                        other.classList.add("preview-same")
+                    }
+                });
             }
         }
+    }
+    if (e.key == "Backspace" && !item.classList.contains("filled")){
+        item.innerHTML = ""
+        item.classList.remove("error")
+        item.classList.remove("correct")
+        items.forEach(other => {
+            other.classList.remove("preview-same")
+        });
     }
 }
 
