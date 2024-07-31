@@ -2,6 +2,7 @@ body{
     width: 100vw;
     height: 100vh; 
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     background-color: gray;
@@ -63,4 +64,17 @@ body{
 
 .correct{
     color: rgb(27, 14, 218);
+}
+
+.reset{
+    font-size: 2em;
+    margin-top: 20px;
+    border-radius: 20%;
+    padding: 10px;
+    color: white;
+    background-color: rgba(35, 127, 127, 0.5);
+}
+
+.reset:hover{
+    cursor: pointer;
 }

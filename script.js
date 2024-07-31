@@ -1,4 +1,5 @@
 let grid = document.querySelector(".main_grid")
+let resetBtn = document.querySelector(".reset")
 let items
 let numErrors = 0
 
@@ -20,6 +21,20 @@ function onClick(e) {
     });
     item.classList.add("selected")
     item.classList.remove("unselected")
+}
+
+resetBtn.addEventListener("click", onClickReset)
+
+function onClickReset(){
+    items.forEach(other => {
+        other.classList.remove("error")
+        other.classList.remove("correct")
+        other.classList.remove("preview")
+        other.classList.remove("preview-same")
+        other.classList.remove("selected")
+        other.classList.remove("filled")
+    });
+    fillGrid()
 }
 
 function putNumber(e) {
@@ -205,7 +220,7 @@ function fillGrid() {
     for (let i = 0; i < 81; i++){
         items[i].classList.add(table[Math.floor(i/9)][i%9])
     }
-    const hideTable = hideNumbers(table, 50);
+    const hideTable = hideNumbers(table, 70);
     for (let i = 0; i < 81; i++){
         items[i].innerHTML = hideTable[Math.floor(i/9)][i%9]
         if(items[i].innerHTML != ""){
