@@ -27,12 +27,7 @@ resetBtn.addEventListener("click", onClickReset)
 
 function onClickReset(){
     items.forEach(other => {
-        other.classList.remove("error")
-        other.classList.remove("correct")
-        other.classList.remove("preview")
-        other.classList.remove("preview-same")
-        other.classList.remove("selected")
-        other.classList.remove("filled")
+        other.className = "grid-item unselected"
     });
     fillGrid()
 }
